@@ -32,9 +32,9 @@ jobs:
     - name: Remove jar-with-dependencies
       run: rm target/*jar-with-dependencies.jar
     - name: Make dir
-      run: mkdir staging && cp target/*.jar staging
+      run: mkdir staging && for i in target/*.jar; do cp $i staging/compiled-jar.jar; break; done;
     - name: Upload jars
       uses: actions/upload-artifact@v4
       with:
-        name: Package
-        path: staging/*.jar
+        name: compiled-jar
+        path: staging/compiled-jar.jar
