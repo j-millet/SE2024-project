@@ -38,3 +38,4 @@ jobs:
       with:
         name: compiled-jar
         path: staging/compiled-jar.jar
+        compression-level: 0
