@@ -28,14 +28,14 @@ public class TextTransformerController {
 
     @RequestMapping(method = RequestMethod.POST, produces = "application/json")
     public String post(@PathVariable String text,
-                      @RequestBody String[] transforms) {
+                      @RequestBody String jsonBody) {
 
         // log the parameters
         logger.debug(text);
-        logger.debug(Arrays.toString(transforms));
+        logger.debug(jsonBody);
 
         // perform the transformation, you should run your logic here, below is just a silly example
-        TextTransformer transformer = new TextTransformer(transforms);
+        TextTransformer transformer = new TextTransformer(null);
         return transformer.transform(text);
     }
 
