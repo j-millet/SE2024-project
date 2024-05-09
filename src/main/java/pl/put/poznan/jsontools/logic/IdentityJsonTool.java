@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class IdentityJsonTool implements IJsonTool {
     private IJsonTool wrappee;
 
-    public IdentityJsonTool(IJsonTool wrappee) throws Exception {
+    public IdentityJsonTool(IJsonTool wrappee) {
         this.wrappee = wrappee;
     }
     @Override
