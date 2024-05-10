@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import pl.put.poznan.jsontools.logic.IJsonTool;
 import pl.put.poznan.jsontools.logic.JsonContainer;
+import pl.put.poznan.jsontools.logic.JsonTool;
 import pl.put.poznan.jsontools.logic.JsonToolFactory;
 
 import java.util.ArrayList;
@@ -55,23 +56,6 @@ public class JsonToolsController {
         }
     }
 
-    private IJsonTool parseTransform(IJsonTool wrappee, LinkedHashMap<String, Object> transform) throws Exception{
-        String transformationType;
-        ArrayList<String> wrapperParams;
-
-        if(!transform.containsKey("type")){
-           throw new Exception("Invalid transforms -> No type for transform.");
-        }
-        try {
-            transformationType = (String) transform.get("type");
-            wrapperParams = (ArrayList<String>) transform.get("params");
-        }catch (Exception e){
-            throw new Exception("Invalid transforms -> Wrong structure.");
-        }
-
-        return JsonToolFactory.createJsonTool(wrappee, transformationType, wrapperParams);
-    }
-
     @RequestMapping(method = RequestMethod.POST, produces = "application/json")
     public ResponseEntity post(
             @PathVariable String type,
@@ -97,7 +81,7 @@ public class JsonToolsController {
         logger.debug(jsonTool.getJsonString());
         try {
             logger.debug(String.format("{\"json-string\":\"%s\"}", jsonTool.getJsonString()));
-            return ResponseEntity.status(HttpStatus.OK).body(String.format("{\"json-string\":\"%s\",\"applied\":\"%s\"}", jsonTool.getJsonString(), type));
+            return ResponseEntity.status(HttpStatus.OK).body(String.format("{\"json-string\":\"%s\",\"applied\":\"%s\"}", jsonTool.getJsonString(), ((JsonTool) jsonTool).getName()));
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("{\"error\":\"Oops :( Something something server monkeys.\"}");
         }

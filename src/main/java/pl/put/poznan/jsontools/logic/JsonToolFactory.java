@@ -3,7 +3,7 @@ package pl.put.poznan.jsontools.logic;
 import java.util.ArrayList;
 
 public class JsonToolFactory {
-    public static IJsonTool createJsonTool(IJsonTool wrappee, String transformationType, ArrayList<String> wrapperParams){
+    public static JsonTool createJsonTool(IJsonTool wrappee, String transformationType, ArrayList<String> wrapperParams){
         if (transformationType == null){
             return new IdentityJsonTool(wrappee);
         }

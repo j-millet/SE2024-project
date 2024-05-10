@@ -2,11 +2,10 @@ package pl.put.poznan.jsontools.logic;
 
 import java.util.ArrayList;
 
-public class IdentityJsonTool implements IJsonTool {
-    private IJsonTool wrappee;
+public class IdentityJsonTool extends JsonTool {
 
     public IdentityJsonTool(IJsonTool wrappee) {
-        this.wrappee = wrappee;
+        super(wrappee,"identity");
     }
     @Override
     public String getJsonString() {

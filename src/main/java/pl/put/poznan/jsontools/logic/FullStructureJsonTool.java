@@ -5,12 +5,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.util.Map;
 
-public class FullStructureJsonTool implements  IJsonTool{
-    private IJsonTool wrappee;
+public class FullStructureJsonTool extends   JsonTool{
     private ObjectMapper objectMapper;
 
     public FullStructureJsonTool(IJsonTool wrappee) {
-        this.wrappee = wrappee;
+        super(wrappee,"full");
         this.objectMapper = new ObjectMapper();
     }
 

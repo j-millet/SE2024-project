@@ -5,12 +5,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.util.Map;
 
-public class MinifyJsonTool implements IJsonTool{
-    private IJsonTool wrappee;
+public class MinifyJsonTool extends JsonTool{
     private ObjectMapper objectMapper;
 
     public MinifyJsonTool(IJsonTool wrappee) {
-        this.wrappee = wrappee;
+        super(wrappee,"minify");
         this.objectMapper = new ObjectMapper();
     }
 

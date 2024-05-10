@@ -5,13 +5,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.util.Map;
 
-public class SkipKeysJsonTool implements IJsonTool{
-    private IJsonTool wrappee;
+public class SkipKeysJsonTool extends JsonTool{
     private String[] keysToSkip;
     private ObjectMapper objectMapper;
 
     public SkipKeysJsonTool(IJsonTool wrappee, String[] keysToSkip) {
-        this.wrappee = wrappee;
+        super(wrappee,"skip");
         this.keysToSkip = keysToSkip;
         this.objectMapper = new ObjectMapper();
     }
