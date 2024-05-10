@@ -1,12 +1,4 @@
 {
   "json-string":"{\"Hello is this\":\"Jason?\"}",
-  "transforms":[
-    {
-      "type":"identity",
-      "params": ["This","one","is","optional","for","most","transforms"]
-    },
-    {
-      "type":"identity"
-    }
-  ]
+  "params": ["Optional","params"]
 }
