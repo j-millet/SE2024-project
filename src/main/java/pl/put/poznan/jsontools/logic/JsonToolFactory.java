@@ -10,6 +10,10 @@ public class JsonToolFactory {
         switch (transformationType) {
             case "identity":
                 return new IdentityJsonTool(wrappee);
+            case "compare":
+                return new CompareJsonTool(wrappee, wrapperParams.toString());
+            case "include":
+                return new IncludeKeysJsonTool(wrappee, wrapperParams.toArray(new String[0]));
             case "minify":
                 return new MinifyJsonTool(wrappee);
             case "full":
