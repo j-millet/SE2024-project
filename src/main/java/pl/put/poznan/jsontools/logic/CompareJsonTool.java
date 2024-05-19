@@ -23,7 +23,7 @@ public class CompareJsonTool extends JsonTool{
 
     private String compareTexts(String jsonString) throws Exception{
         Map<String,Object> map = objectMapper.readValue(jsonString, new TypeReference<Map<String,Object>>(){});
-        Map<String,Object> map2 = objectMapper.readValue(toCompare, new TypeReference<Map<String, Object>>() {});
+        Map<String,Object> map2 = objectMapper.readValue(this.toCompare, new TypeReference<Map<String, Object>>() {});
 
         Iterator<Map.Entry<String, Object>> iterator1 = map.entrySet().iterator();
         Iterator<Map.Entry<String, Object>> iterator2 = map2.entrySet().iterator();
@@ -32,10 +32,16 @@ public class CompareJsonTool extends JsonTool{
         int lineNumber = 0;
         while(iterator1.hasNext() && iterator2.hasNext()){
             lineNumber++;
+
             Map.Entry<String, Object> entry1 = iterator1.next();
             Map.Entry<String, Object> entry2 = iterator2.next();
-            if (entry1.getKey() != null && entry2.getKey() != null &&
-                    entry1.getKey().equals(entry2.getKey()) && entry1.getValue().equals(entry2.getValue())){
+
+            if (
+                    entry1.getKey() != null &&
+                    entry2.getKey() != null &&
+                    entry1.getKey().equals(entry2.getKey()) &&
+                    entry1.getValue().equals(entry2.getValue())
+            ){
                 continue;
             }
             else {
@@ -55,7 +61,8 @@ public class CompareJsonTool extends JsonTool{
         try {
             return compareTexts(wrappee.getJsonString());
         } catch (Exception e) {
-            return wrappee.getJsonString();
+            e.printStackTrace();
+            return "[]";
         }
     }
 }

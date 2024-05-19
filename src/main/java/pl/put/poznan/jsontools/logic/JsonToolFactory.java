@@ -11,7 +11,7 @@ public class JsonToolFactory {
             case "identity":
                 return new IdentityJsonTool(wrappee);
             case "compare":
-                return new CompareJsonTool(wrappee, wrapperParams.toString());
+                return new CompareJsonTool(wrappee, wrapperParams.get(0));
             case "include":
                 return new IncludeKeysJsonTool(wrappee, wrapperParams.toArray(new String[0]));
             case "minify":
