@@ -10,7 +10,7 @@ name: Build
 
 on:
   push:
-    branches: [ "main" , "jar-build"]
+    branches: [ "main" , "javadoc"]
   pull_request:
     branches: [ "main" ]
 
@@ -32,10 +32,13 @@ jobs:
     - name: Remove jar-with-dependencies
       run: rm target/*jar-with-dependencies.jar
     - name: Make dir
-      run: mkdir staging && for i in target/*.jar; do cp $i staging/compiled-jar.jar; break; done;
-    - name: Upload jars
+      run: mkdir staging && mkdir staging/javadoc
+    - name: Copy jar
+      run: for i in target/*.jar; do cp $i staging/compiled-jar.jar; break; done;
+    - name: Copy javadoc
+      run: cp -r target/site staging/javadoc
+    - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
-        name: compiled-jar
-        path: staging/compiled-jar.jar
-        compression-level: 0
+        name: compiled-package-with-docs
+        path: staging
