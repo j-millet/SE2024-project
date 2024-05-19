@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSON Tools</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="app">
+    <h1>JSON Tools</h1>
+    <textarea id="json-input" placeholder="Enter your JSON here"></textarea>
+    <select id="operation-select">
+        <option value="identity">Identity</option>
+        <option value="compare">Compare</option>
+        <option value="include">Include</option>
+        <option value="minify">Minify</option>
+        <option value="full">Full</option>
+        <option value="skip">Skip</option>
+    </select>
+    <input type="text" id="params-input" placeholder="Enter parameters (comma separated)">
+    <button id="submit-button">Submit</button>
+    <pre id="result"></pre>
+</div>
+<script src="app.js"></script>
+</body>
+</html>
