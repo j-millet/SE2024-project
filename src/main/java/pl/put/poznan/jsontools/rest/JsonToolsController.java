@@ -68,7 +68,7 @@ public class JsonToolsController {
 
         logger.debug(
                 String.format(
-                        "Received JSON head: %s\nTransforms: %s",
+                        "\nReceived JSON head: %s\nParams: %s",
                         jsonString.substring(0,min(jsonString.length(),100)),
                         params.toString()
                 )
