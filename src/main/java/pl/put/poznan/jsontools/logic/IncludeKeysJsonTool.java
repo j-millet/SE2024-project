@@ -30,12 +30,12 @@ public class IncludeKeysJsonTool extends JsonTool {
     }
 
     /**
-     *
+     * Method that applies transformation - based on keys to include that were provided in constructor it filters json string
      * @param jsonString string to be filtered
      * @return json string with only certain keys included
-     * @throws Exception
+     * @throws Exception when there is some problem with objectMapper
      */
-    private String includeKeys(String jsonString) throws Exception {
+    private String includeKeys(String jsonString) throws Exception{
         Map<String, Object> map = objectMapper.readValue(jsonString, new TypeReference<Map<String, Object>>() {
         });
         Set<String> keysToIncludeSet = Set.of(keysToInclude);
