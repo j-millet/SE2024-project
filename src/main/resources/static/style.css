@@ -29,6 +29,7 @@ pre {
     background: #f4f4f4;
     padding: 10px;
     overflow-x: auto;
+    text-wrap: wrap;
 }
 
 .disabled {
