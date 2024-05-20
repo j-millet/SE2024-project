@@ -15,8 +15,13 @@ textarea {
     margin-bottom: 10px;
 }
 
-select, input, button {
+select, button {
     margin: 5px;
+}
+
+input {
+    margin: 5px;
+    width: 60%;
 }
 
 pre {
@@ -24,4 +29,9 @@ pre {
     background: #f4f4f4;
     padding: 10px;
     overflow-x: auto;
+}
+
+.disabled {
+    background-color: rgba(240, 240, 240, 0.33);
+    cursor: not-allowed;
 }
