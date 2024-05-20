@@ -56,6 +56,13 @@ public class JsonToolsController {
         }
     }
 
+    private String cleanupJsonString(String jsonString){
+        return jsonString.
+                replace("\"", "\\\"").
+                replace("\'", "\\\'").
+                replace("\n", "\\n").
+                replace("\r", "");
+    }
     @RequestMapping(method = RequestMethod.POST, produces = "application/json")
     public ResponseEntity post(
             @PathVariable String type,
@@ -81,7 +88,7 @@ public class JsonToolsController {
         logger.debug(jsonTool.getJsonString());
         try {
             logger.debug(String.format("{\"json-string\":\"%s\"}", jsonTool.getJsonString()));
-            return ResponseEntity.status(HttpStatus.OK).body(String.format("{\"json-string\":\"%s\",\"applied\":\"%s\"}", jsonTool.getJsonString(), ((JsonTool) jsonTool).getName()));
+            return ResponseEntity.status(HttpStatus.OK).body(String.format("{\"json-string\":\"%s\",\"applied\":\"%s\"}", cleanupJsonString(jsonTool.getJsonString()), ((JsonTool) jsonTool).getName()));
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("{\"error\":\"Oops :( Something something server monkeys.\"}");
         }

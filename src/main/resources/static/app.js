@@ -9,10 +9,12 @@ document.getElementById('submit-button').addEventListener('click', function() {
 
     let json;
     try {
-        json = JSON.parse('"' + String.raw`${jsonInput}` + '"');
+        var input = String.raw`${jsonInput.replace(/"/g,"\\\"").replace(/'/g,"\\\'").replace(/(\r\n|\n|\r)/gm, "")}`;
+        json = JSON.parse('"' + input + '"');
     } catch (e) {
         alert("Invalid JSON");
         console.error("Invalid JSON");
+        console.error(e);
         return;
     }
     console.log(json);
@@ -31,16 +33,13 @@ document.getElementById('submit-button').addEventListener('click', function() {
     })
         .then(response => response.text())
         .then(text => {
-            if (text.includes("error")) {
+            var outerJSON = JSON.parse(text);
+            if ("error" in outerJSON) {
                 alert("Invalid JSON");
                 console.error(text);
                 return;
             }
-            // extract text from the 2nd "{" character to the first "}" character | druciarstwo fest
-            const start = text.indexOf("{");
-            const end = text.indexOf("}");
-            const innerJson = JSON.parse(text.substring(start + 16, end+1)); // I'm sorry
-            document.getElementById('result').textContent = JSON.stringify(innerJson, null, 2);
+            document.getElementById('result').textContent = outerJSON["json-string"];
         })
         .catch(error => {
             console.error('Fetch error:', error);
