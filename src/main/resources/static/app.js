@@ -9,8 +9,10 @@ document.getElementById('submit-button').addEventListener('click', function() {
 
     let json;
     try {
-        var input = String.raw`${jsonInput.replace(/"/g,"\\\"").replace(/'/g,"\\\'").replace(/(\r\n|\n|\r)/gm, "")}`;
+        var input = String.raw`${jsonInput.replace(/"/g,"\\\"").replace(/'/g,String.raw`<sq>`).replace(/(\r\n|\n|\r)/gm, "")}`;
+        console.log(JSON.stringify(input));
         json = JSON.parse('"' + input + '"');
+        console.log(json);
     } catch (e) {
         alert("Invalid JSON");
         console.error("Invalid JSON");
@@ -35,11 +37,10 @@ document.getElementById('submit-button').addEventListener('click', function() {
         .then(text => {
             var outerJSON = JSON.parse(text);
             if ("error" in outerJSON) {
-                alert("Invalid JSON");
-                console.error(text);
+                alert(outerJSON["error"]);
                 return;
             }
-            document.getElementById('result').textContent = outerJSON["json-string"];
+            document.getElementById('result').textContent = outerJSON["json-string"].replace(/<sq>/g,"'");
         })
         .catch(error => {
             console.error('Fetch error:', error);
