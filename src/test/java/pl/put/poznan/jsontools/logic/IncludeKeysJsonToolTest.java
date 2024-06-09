@@ -3,12 +3,14 @@ package pl.put.poznan.jsontools.logic;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.core.type.TypeReference;
 
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 class IncludeKeysJsonToolTest {
     private IJsonTool basicJsonTool;
@@ -19,12 +21,8 @@ class IncludeKeysJsonToolTest {
     public void setUp(){
         objectMapper = new ObjectMapper();
         jsonString = "{\"name\":\"John\", \"age\":30, \"city\":\"New York\", \"surname\":\"Smith\"}";
-        basicJsonTool = new IJsonTool() {
-            @Override
-            public String getJsonString() {
-                return jsonString;
-            }
-        };
+        basicJsonTool = mock(IJsonTool.class);
+        when(basicJsonTool.getJsonString()).thenReturn(jsonString);
     }
 
     @AfterEach
@@ -46,6 +44,7 @@ class IncludeKeysJsonToolTest {
         Map<String, Object> expectedMap = objectMapper.readValue(expectedJson, new TypeReference<Map<String, Object>>() {});
         Map<String, Object> trueMap = objectMapper.readValue(result, new TypeReference<Map<String, Object>>() {});
         assertEquals(trueMap, expectedMap);
+        verify(basicJsonTool, times(1)).getJsonString();
     }
 
     //Empty string
@@ -60,6 +59,7 @@ class IncludeKeysJsonToolTest {
         Map<String, Object> expectedMap = objectMapper.readValue(expectedJson, new TypeReference<Map<String, Object>>() {});
         Map<String, Object> trueMap = objectMapper.readValue(result, new TypeReference<Map<String, Object>>() {});
         assertEquals(trueMap, expectedMap);
+        verify(basicJsonTool, times(1)).getJsonString();
     }
 
     //All parameters
@@ -74,6 +74,7 @@ class IncludeKeysJsonToolTest {
         Map<String, Object> expectedMap = objectMapper.readValue(expectedJson, new TypeReference<Map<String, Object>>() {});
         Map<String, Object> trueMap = objectMapper.readValue(result, new TypeReference<Map<String, Object>>() {});
         assertEquals(trueMap, expectedMap);
+        verify(basicJsonTool, times(1)).getJsonString();
     }
 
     //Non-existing keys
@@ -88,6 +89,7 @@ class IncludeKeysJsonToolTest {
         Map<String, Object> expectedMap = objectMapper.readValue(expectedJson, new TypeReference<Map<String, Object>>() {});
         Map<String, Object> trueMap = objectMapper.readValue(result, new TypeReference<Map<String, Object>>() {});
         assertEquals(trueMap, expectedMap);
+        verify(basicJsonTool, times(1)).getJsonString();
     }
 
     //Different order of keys
@@ -103,5 +105,6 @@ class IncludeKeysJsonToolTest {
         Map<String, Object> trueMap = objectMapper.readValue(result, new TypeReference<Map<String, Object>>() {});
 
         assertEquals(trueMap, expectedMap);
+        verify(basicJsonTool, times(1)).getJsonString();
     }
 }
